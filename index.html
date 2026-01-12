@@ -79,6 +79,52 @@
             opacity: 0;
             transition: opacity 0.3s;
         }
+        .video-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+}
+
+.video-player {
+    width: 75%;
+    max-width: 720px;   /* desktop limit */
+    height: auto;
+
+    border-radius: 18px;
+    overflow: hidden;
+
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+    background: #000;
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Soft hover effect */
+.video-player:hover {
+    transform: scale(1.02);
+    box-shadow: 0 18px 45px rgba(255, 182, 193, 0.6);
+}
+
+/* Mobile friendly */
+@media (max-width: 768px) {
+    .video-player {
+        width: 95%;
+        border-radius: 14px;
+    }
+}
+.video-wrapper::before {
+    content: "🎥 Amma Memories";
+    display: block;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #d63384;
+    margin-bottom: 15px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+
 
         .cursor-heart::before {
             content: '❤️';
@@ -619,6 +665,80 @@
         .polaroid-rotate {
             transform: rotate(-5deg);
         }
+.video-frame {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+    position: relative;
+}
+
+/* Video Box */
+.custom-video {
+    position: relative;
+    width: 360px;   /* SMALL SIZE */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(255,105,180,0.35);
+}
+
+/* Video */
+.custom-video video {
+    width: 100%;
+    display: block;
+    border-radius: 20px;
+}
+
+/* Play Button */
+.play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 65px;
+    height: 65px;
+    background: rgba(255, 105, 180, 0.85);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: #fff;
+    font-size: 26px;
+    cursor: pointer;
+
+    animation: pulse 1.8s infinite;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255,105,180,0.7); }
+    70% { box-shadow: 0 0 0 18px rgba(255,105,180,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,105,180,0); }
+}
+
+/* Hearts / Flowers */
+.floating-hearts::before {
+    content: "💖 🌸 💕 🌷 💗";
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 22px;
+    animation: float 4s infinite ease-in-out;
+}
+
+@keyframes float {
+    0% { transform: translate(-50%, 0); opacity: 0.6; }
+    50% { transform: translate(-50%, -12px); opacity: 1; }
+    100% { transform: translate(-50%, 0); opacity: 0.6; }
+}
+
+/* Mobile */
+@media (max-width: 500px) {
+    .custom-video {
+        width: 90%;
+    }
+}
 
         body.night-mode .polaroid {
             background-color: #5d4037;
@@ -1480,6 +1600,7 @@
 
         <button type="button" class="start-btn" id="startBtn">Click here Amma 💕</button>
     </section>
+    
 
     <!-- Timeline Section -->
 <section class="section timeline" id="timeline">
@@ -1852,6 +1973,9 @@
         <div id="confettiContainer"></div>
     </section>
 
+
+
+
     <!-- Cake Cutting Section -->
     <section class="section cake-cutting" id="cake-cutting">
         <h2 class="section-title">Cake Cutting for Amma 🎂</h2>
@@ -1867,6 +1991,18 @@
             </div>
         </div>
     </section>
+    <div class="video-frame">
+    <div class="floating-hearts"></div>
+
+    <div class="custom-video" id="videoBox">
+        <video id="mainVideo">
+            <source src="1.mp4" type="video/mp4">
+        </video>
+
+        <!-- Custom Play Button -->
+        <div class="play-btn" id="playBtn">▶</div>
+    </div>
+</div>
 
     <!-- Garden of Love -->
     <section class="section garden" id="garden">
@@ -2407,6 +2543,17 @@
                 }, index * 200);
             });
         }
+        const video = document.getElementById("mainVideo");
+const playBtn = document.getElementById("playBtn");
+
+playBtn.addEventListener("click", () => {
+    video.play();
+    playBtn.style.display = "none";
+});
+
+video.addEventListener("pause", () => {
+    playBtn.style.display = "flex";
+});
 
         // Show memory when flower is clicked
         flowers.forEach(flower => {
