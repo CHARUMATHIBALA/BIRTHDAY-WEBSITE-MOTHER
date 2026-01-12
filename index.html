@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ta">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amma  My First Love ❤️</title>
+    <title>Amma – My First Love ❤️</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Noto+Sans+Tamil:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
@@ -103,8 +103,7 @@
         }
 
         #backgroundMusic {
-            margin-top: 20px;
-            width: min(360px, 90%);
+            display: none;
         }
 
         /* Day/Night Toggle */
@@ -188,6 +187,30 @@
         .floating-flower {
             color: var(--gold);
             font-size: 28px;
+        }
+
+        .floating-heart-1 {
+            left: 10%;
+            top: 20%;
+            animation-delay: 0s;
+        }
+
+        .floating-heart-2 {
+            left: 80%;
+            top: 30%;
+            animation-delay: 1s;
+        }
+
+        .floating-flower-1 {
+            left: 20%;
+            top: 60%;
+            animation-delay: 2s;
+        }
+
+        .floating-flower-2 {
+            left: 70%;
+            top: 50%;
+            animation-delay: 1.5s;
         }
 
         @keyframes float {
@@ -473,54 +496,6 @@
             50% { text-shadow: 0 0 18px rgba(216, 27, 96, 0.35), 0 0 28px rgba(255, 215, 0, 0.22); }
         }
 
-        /* Video Section */
-        .video-section {
-            background-color: var(--lavender);
-            text-align: center;
-        }
-
-        body.night-mode .video-section {
-            background-color: #4a2c1c;
-        }
-
-        .video-container {
-            max-width: 800px;
-            width: 100%;
-            margin-top: 40px;
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .video-caption {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2rem;
-            color: var(--dark-pink);
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        body.night-mode .video-caption {
-            color: var(--gold);
-        }
-
         /* Photo Gallery */
         .gallery {
             background-color: var(--lavender);
@@ -543,10 +518,13 @@
             background-color: white;
             padding: 15px 15px 40px 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            transform: rotate(var(--rotate));
             transition: var(--transition-fast);
             cursor: pointer;
             position: relative;
+        }
+
+        .polaroid-rotate {
+            transform: rotate(-5deg);
         }
 
         body.night-mode .polaroid {
@@ -601,6 +579,10 @@
             justify-content: center;
             align-items: center;
             backdrop-filter: blur(10px);
+        }
+
+        .modal.active {
+            display: flex;
         }
 
         .modal-content {
@@ -788,6 +770,11 @@
             transform: translateX(-50%);
             animation: flicker 0.8s infinite alternate;
             box-shadow: 0 0 20px rgba(255, 152, 0, 0.6);
+            transition: opacity 0.5s;
+        }
+
+        .cake-flame.blown {
+            opacity: 0;
         }
 
         .blow-btn {
@@ -845,787 +832,533 @@
         .blessing {
             background: linear-gradient(135deg, var(--lavender) 0%, var(--cream) 100%);
             position: relative;
-            overflow: hidden;
         }
 
         body.night-mode .blessing {
             background: linear-gradient(135deg, #4a2c1c 0%, #3a2518 100%);
         }
 
-        .amma-photo {
-            width: 250px;
-            height: 250px;
+        .blessing-photo {
+            width: 300px;
+            height: 300px;
             border-radius: 50%;
             object-fit: cover;
-            border: 10px solid white;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            margin-bottom: 60px;
-            z-index: 2;
-            position: relative;
+            border: 8px solid var(--gold);
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.4);
+            margin-bottom: 40px;
+            animation: photoGlow 3s ease-in-out infinite;
         }
 
-        body.night-mode .amma-photo {
-            border-color: #5d4037;
+        @keyframes photoGlow {
+            0%, 100% { box-shadow: 0 20px 60px rgba(255, 215, 0, 0.4); }
+            50% { box-shadow: 0 20px 80px rgba(255, 215, 0, 0.7); }
         }
 
         .floating-word {
             position: absolute;
+            font-family: 'Dancing Script', cursive;
             font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--dark-pink);
-            animation: float-around 20s linear infinite;
-            opacity: 0.8;
+            opacity: 0;
+            animation: wordFloat 8s ease-in-out infinite;
         }
 
-        body.night-mode .floating-word {
-            color: var(--gold);
-        }
-
-        @keyframes float-around {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(100px, 100px) rotate(90deg); }
-            50% { transform: translate(0, 200px) rotate(180deg); }
-            75% { transform: translate(-100px, 100px) rotate(270deg); }
-            100% { transform: translate(0, 0) rotate(360deg); }
+        @keyframes wordFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
         }
 
         .final-text {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Dancing Script', cursive;
             font-size: 3.5rem;
             color: var(--dark-pink);
-            text-align: center;
             margin-top: 40px;
-            animation: glow 2s infinite alternate;
-            position: relative;
-            z-index: 2;
+            text-align: center;
+            opacity: 0;
+            animation: finalGlow 4s ease-in-out infinite;
         }
 
         body.night-mode .final-text {
             color: var(--gold);
         }
 
-        @keyframes glow {
-            from { text-shadow: 0 0 10px rgba(216, 27, 96, 0.5); }
-            to { text-shadow: 0 0 20px rgba(216, 27, 96, 0.8), 0 0 30px rgba(216, 27, 96, 0.6); }
+        @keyframes finalGlow {
+            0%, 100% { opacity: 0.8; text-shadow: 0 0 10px rgba(216, 27, 96, 0.3); }
+            50% { opacity: 1; text-shadow: 0 0 20px rgba(216, 27, 96, 0.6), 0 0 30px rgba(255, 215, 0, 0.4); }
         }
 
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 768px) {
             .section-title {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
-            
             .typewriter {
                 font-size: 2.5rem;
             }
-            
-            .timeline-line {
-                left: 30px;
-            }
-            
-            .timeline-item {
-                flex-direction: row !important;
-                margin-left: 60px;
-            }
-            
             .timeline-content {
-                width: 100%;
+                width: 85%;
             }
-            
-            .timeline-content::after {
-                left: -10px !important;
-                right: auto !important;
-            }
-            
-            .timeline-icon {
-                left: 30px;
-            }
-            
-            .letter-text {
-                font-size: 1.6rem;
-            }
-            
-            .video-caption {
-                font-size: 1.5rem;
-            }
-            
-            .final-text {
-                font-size: 2.5rem;
-            }
-            
             .gallery-container {
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             }
+
+            /* Ensure embedded cake frame looks good on mobile */
+            .cake-frame-container {
+                width: 100%;
+                max-width: 100%;
+                padding: 0 10px;
+            }
         }
 
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
+        /* Embedded cake-cutting iframe styling */
+        .cake-frame-container {
+            width: 100%;
+            max-width: 900px;
+            aspect-ratio: 16 / 9;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow:
+                0 18px 45px rgba(0, 0, 0, 0.18),
+                0 0 40px rgba(255, 182, 193, 0.4);
+            position: relative;
+            background: radial-gradient(circle at top, #ffe6f0 0%, #fefaf5 45%, #fbefff 100%);
+        }
+
+        .cake-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
         }
     </style>
 </head>
 <body>
     <!-- Music Player -->
     <div class="music-player">
-        <span class="music-label">Background Music</span>
-        <button class="music-btn" id="musicToggle">
+        <span class="music-label">Music</span>
+        <button type="button" class="music-btn" id="musicToggle" aria-label="Toggle music">
             <i class="fas fa-play"></i>
         </button>
     </div>
+    <audio id="backgroundMusic" loop>
+        <!-- Add your music file: <source src="music/amma-veena.mp3" type="audio/mpeg"> -->
+    </audio>
 
     <!-- Day/Night Toggle -->
     <div class="theme-toggle" id="themeToggle">
-        <i class="fas fa-moon theme-icon"></i>
+        <span class="theme-icon">🌙</span>
         <span class="theme-label">Night Mode</span>
     </div>
 
-    <!-- Cursor hearts -->
-    <div id="cursorHearts"></div>
-
     <!-- Landing Page -->
-    <section class="section hero" id="home">
-        <div class="floating-elements" id="floatingElements"></div>
-        
+    <section class="section hero" id="hero">
+        <div class="floating-heart floating-heart-1">❤️</div>
+        <div class="floating-heart floating-heart-2">💖</div>
+        <div class="floating-flower floating-flower-1">🌸</div>
+        <div class="floating-flower floating-flower-2">🌺</div>
+
         <div class="typewriter-container">
-            <h1 class="typewriter">Happy Birthday Amma ❤️</h1>
+            <h1 class="typewriter" id="typewriter">Happy Birthday Amma ❤️</h1>
         </div>
-        
-        <button class="start-btn" id="startBtn">Click here Amma 💕</button>
-        
-        <audio id="backgroundMusic" loop controls preload="auto">
-            <source src="https://assets.mixkit.co/music/preview/mixkit-memories-128.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
+
+        <button type="button" class="start-btn" id="startBtn">Click here Amma 💕</button>
     </section>
 
-    <!-- Memory Timeline -->
+    <!-- Timeline Section -->
     <section class="section timeline" id="timeline">
-        <h2 class="section-title">Amma's Beautiful Journey</h2>
-
-        <div class="timeline-ambient" id="timelineAmbient"></div>
-        
+        <h2 class="section-title">Memory Timeline</h2>
         <div class="timeline-container">
+            <div class="timeline-ambient" id="ambientContainer"></div>
             <div class="timeline-line">
                 <div class="timeline-line-fill" id="timelineFill"></div>
             </div>
-            
-            <div class="timeline-item" id="item1">
+
+            <div class="timeline-item" data-index="0">
                 <div class="timeline-content">
-                    <h3 class="timeline-title">Childhood · குழந்தைப் பருவம் �</h3>
-                    <p class="timeline-text">From the earliest days, your kindness and quiet courage grew gently—like a soft flower that still stands strong in every season.</p>
-                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Childhood" class="timeline-image">
+                    <div class="timeline-icon">👶</div>
+                    <h3 class="timeline-title">Childhood</h3>
+                    <p class="timeline-text">Those innocent days filled with laughter, dreams, and endless love. Every memory is a treasure.</p>
                 </div>
-                <div class="timeline-icon">�</div>
             </div>
-            
-            <div class="timeline-item" id="item2">
+
+            <div class="timeline-item" data-index="1">
                 <div class="timeline-content">
-                    <h3 class="timeline-title">Youth · இளமை ✨</h3>
-                    <p class="timeline-text">Dreams, responsibilities, and hope—your heart learned to balance everything with grace. You kept moving forward, even when it was hard.</p>
-                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Youth" class="timeline-image">
+                    <div class="timeline-icon">💑</div>
+                    <h3 class="timeline-title">Marriage</h3>
+                    <p class="timeline-text">A new beginning, a new chapter. Building a home filled with warmth and love.</p>
                 </div>
-                <div class="timeline-icon">✨</div>
             </div>
-            
-            <div class="timeline-item" id="item3">
+
+            <div class="timeline-item" data-index="2">
                 <div class="timeline-content">
-                    <h3 class="timeline-title">Marriage · திருமணம் 💍</h3>
-                    <p class="timeline-text">A new home, new duties, and new prayers. You built peace with patience, and love with small everyday sacrifices.</p>
-                    <img src="https://images.unsplash.com/photo-1511285560929-a57c8a288659?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Marriage" class="timeline-image">
+                    <div class="timeline-icon">👶</div>
+                    <h3 class="timeline-title">Me as a Baby</h3>
+                    <p class="timeline-text">The moment you became a mother. Your world changed, and so did mine. Forever grateful.</p>
                 </div>
-                <div class="timeline-icon">�</div>
             </div>
-            
-            <div class="timeline-item" id="item4">
+
+            <div class="timeline-item" data-index="3">
                 <div class="timeline-content">
-                    <h3 class="timeline-title">Motherhood · தாய்மை 👶</h3>
-                    <p class="timeline-text">Sleepless nights, endless care, and love that never asks for anything back. Your strength became our shelter.</p>
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Motherhood" class="timeline-image">
+                    <div class="timeline-icon">👨‍👩‍👧‍👦</div>
+                    <h3 class="timeline-title">Family Memories</h3>
+                    <p class="timeline-text">Countless moments of joy, sacrifice, and unconditional love. You are our foundation.</p>
                 </div>
-                <div class="timeline-icon">🤱</div>
             </div>
-            
-            <div class="timeline-item" id="item5">
-                <div class="timeline-content">
-                    <h3 class="timeline-title">Present Day · இன்று ❤️</h3>
-                    <p class="timeline-text">Still the heartbeat of our family—gentle, wise, and unshakably loving. Everything good in us carries a part of you.</p>
-                    <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Present Day" class="timeline-image">
-                </div>
-                <div class="timeline-icon">❤️</div>
+
+            <div class="timeline-finale" id="timelineFinale">
+                என் வாழ்க்கையின் அழகான காலவரிசை – என் அம்மா 💖
             </div>
         </div>
-
-        <div class="timeline-finale" id="timelineFinale">என் வாழ்க்கையின் அழகான காலவரிசை – என் அம்மா 💖</div>
-    </section>
-
-    <!-- Video Cake Cutting Section -->
-    <section class="section video-section" id="video">
-        <h2 class="section-title">Celebration Time! 🎂</h2>
-        <p class="video-caption">Let's cut the cake together, Amma!</p>
-        
-        <div class="video-container">
-            <div class="video-wrapper">
-                <!-- YouTube video of cake cutting celebration -->
-                <iframe src="https://www.youtube.com/embed/zvKXWZDQv2I?rel=0&modestbranding=1&autoplay=0&controls=1" 
-                        title="Birthday Cake Cutting Celebration" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                </iframe>
-            </div>
-        </div>
-        
-        <p style="margin-top: 20px; font-size: 1.2rem; text-align: center; max-width: 600px;">
-            Every year, your birthday is our favorite celebration. Here's to many more joyful cake-cutting moments together!
-        </p>
     </section>
 
     <!-- Photo Gallery -->
     <section class="section gallery" id="gallery">
         <h2 class="section-title">Magic Gallery ✨</h2>
-        
         <div class="gallery-container">
-            <!-- Polaroid photos will be generated by JavaScript -->
-        </div>
-        
-        <!-- Modal for fullscreen image -->
-        <div class="modal" id="imageModal">
-            <span class="modal-close" id="modalClose">&times;</span>
-            <img class="modal-content" id="modalImage">
+            <div class="polaroid polaroid-rotate" data-img="1.jpeg">
+                <div class="heart-burst">💥❤️</div>
+                <img src="1.jpeg" alt="Memory 1" class="polaroid-img" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2ZmYjZjMSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM1ZDMwMzciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5NZW1vcnk8L3RleHQ+PC9zdmc+'">
+                <div class="polaroid-caption">Beautiful Memory</div>
+            </div>
+            <!-- Add more polaroids as needed -->
         </div>
     </section>
 
-    <!-- Letter to Amma -->
+    <!-- Letter Section -->
     <section class="section letter" id="letter">
-        <div class="candle-container">
-            <div class="candle">
-                <div class="flame"></div>
-            </div>
-        </div>
-        
+        <h2 class="section-title">Letter to Amma</h2>
         <div class="letter-container">
-            <div class="letter-text">
-                <div class="letter-line" id="line1">Amma,</div>
-                <div class="letter-line" id="line2">Enna vida yaarum enna ivlo nesikkala…</div>
-                <div class="letter-line" id="line3">Nee irukkira varaikum naan safe ❤️</div>
-                <div class="letter-line" id="line4">You are my first love, my forever hero.</div>
-                <div class="letter-line" id="line5">Your sacrifices, your love, your strength -</div>
-                <div class="letter-line" id="line6">they shaped me into who I am today.</div>
-                <div class="letter-line" id="line7">On this special day, I want you to know</div>
-                <div class="letter-line" id="line8">that you are the most precious gift in my life.</div>
-                <div class="letter-line" id="line9">Happy Birthday, Amma! I love you infinitely.</div>
-                <div class="letter-line" id="line10">Forever your child,</div>
-                <div class="letter-line" id="line11">[Your Name]</div>
+            <div class="candle-container">
+                <div class="candle">
+                    <div class="flame"></div>
+                </div>
+            </div>
+            <div class="letter-text" id="letterText">
+                <div class="letter-line">Amma,</div>
+                <div class="letter-line">Enna vida yaarum enna ivlo nesikkala…</div>
+                <div class="letter-line">Nee irukkira varaikum naan safe ❤️</div>
+                <div class="letter-line">You are my first love, my forever hero.</div>
+                <div class="letter-line">Thank you for everything, Amma.</div>
             </div>
         </div>
     </section>
 
     <!-- Birthday Surprise -->
     <section class="section surprise" id="surprise">
-        <div class="balloons-container" id="balloonsContainer"></div>
-        <div class="confetti-container" id="confettiContainer"></div>
-        
-        <h2 class="section-title">Make a Wish Amma!</h2>
-        
+        <div id="balloonsContainer"></div>
+        <h2 class="section-title">Birthday Surprise 🎂</h2>
         <div class="cake-container">
             <div class="cake">
                 <div class="cake-top"></div>
-                <div class="cake-candle"></div>
-                <div class="cake-flame" id="cakeFlame"></div>
+                <div class="cake-candle">
+                    <div class="cake-flame" id="cakeFlame"></div>
+                </div>
             </div>
         </div>
-        
-        <button class="blow-btn" id="blowBtn">Blow the Candle 🎂</button>
-        
+        <button type="button" class="blow-btn" id="blowBtn">Blow the Candle 🎂</button>
         <div class="wish-text" id="wishText">Make a Wish Amma ✨</div>
+        <div id="confettiContainer"></div>
+    </section>
+
+    <!-- Cake Cutting Visual (integrated from cake-cutting.html) -->
+    <section class="section" id="cake-cutting-section">
+        <h2 class="section-title">Cake Cutting for Amma 🎂</h2>
+        <div class="cake-frame-container">
+            <iframe
+                class="cake-frame"
+                src="cake-cutting.html"
+                title="Birthday Cake Cutting for Amma"
+                loading="lazy"
+            ></iframe>
+        </div>
     </section>
 
     <!-- Final Blessing -->
     <section class="section blessing" id="blessing">
-        <div class="floating-words" id="floatingWords"></div>
-        
-        <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Amma" class="amma-photo">
-        
-        <div class="final-text">Forever my hero Amma ❤️</div>
+        <h2 class="section-title">Forever My Hero</h2>
+        <img src="1.jpeg" alt="Amma" class="blessing-photo" id="blessingPhoto" onerror="this.style.display='none'; this.alt='Photo placeholder';">
+        <div id="floatingWordsContainer"></div>
+        <div class="final-text" id="finalText">Forever my hero Amma ❤️</div>
     </section>
 
+    <!-- Modal -->
+    <div class="modal" id="imageModal">
+        <span class="modal-close" id="modalClose">&times;</span>
+        <img class="modal-content" id="modalImage" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect width='400' height='400' fill='%23ffb6c1'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='18' fill='%235d4037' text-anchor='middle' dy='.3em'%3EImage%3C/text%3E%3C/svg%3E" alt="Full size image">
+    </div>
+
     <script>
-        // DOM Elements
-        const startBtn = document.getElementById('startBtn');
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('night-mode');
+            const icon = themeToggle.querySelector('.theme-icon');
+            const label = themeToggle.querySelector('.theme-label');
+            if (document.body.classList.contains('night-mode')) {
+                icon.textContent = '☀️';
+                label.textContent = 'Day Mode';
+            } else {
+                icon.textContent = '🌙';
+                label.textContent = 'Night Mode';
+            }
+        });
+
+        // Music Toggle
         const musicToggle = document.getElementById('musicToggle');
         const backgroundMusic = document.getElementById('backgroundMusic');
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-        const cursorHearts = document.getElementById('cursorHearts');
-        const floatingElements = document.getElementById('floatingElements');
-        const timelineFill = document.getElementById('timelineFill');
-        const timelineItems = document.querySelectorAll('.timeline-item');
-        const timelineSection = document.getElementById('timeline');
-        const timelineFinale = document.getElementById('timelineFinale');
-        const timelineAmbient = document.getElementById('timelineAmbient');
-        const galleryContainer = document.querySelector('.gallery-container');
-        const imageModal = document.getElementById('imageModal');
-        const modalImage = document.getElementById('modalImage');
-        const modalClose = document.getElementById('modalClose');
+        let isPlaying = false;
 
-        const letterLines = document.querySelectorAll('.letter-line');
-        const blowBtn = document.getElementById('blowBtn');
-        const cakeFlame = document.getElementById('cakeFlame');
-        const wishText = document.getElementById('wishText');
-        const balloonsContainer = document.getElementById('balloonsContainer');
-        const confettiContainer = document.getElementById('confettiContainer');
-        const floatingWords = document.getElementById('floatingWords');
-
-        // Music control
-        let isMusicPlaying = false;
         musicToggle.addEventListener('click', () => {
-            if (isMusicPlaying) {
+            if (isPlaying) {
                 backgroundMusic.pause();
-                isMusicPlaying = false;
                 musicToggle.innerHTML = '<i class="fas fa-play"></i>';
-                return;
-            }
-
-            backgroundMusic.play().then(() => {
-                isMusicPlaying = true;
-                musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
-            }).catch(() => {
-                console.log("Autoplay prevented. Please interact with the page first.");
-                isMusicPlaying = false;
-                musicToggle.innerHTML = '<i class="fas fa-play"></i>';
-            });
-        });
-
-        // Theme toggle
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('night-mode');
-            if (body.classList.contains('night-mode')) {
-                themeToggle.innerHTML = '<i class="fas fa-sun theme-icon"></i><span class="theme-label">Day Mode</span>';
+                isPlaying = false;
             } else {
-                themeToggle.innerHTML = '<i class="fas fa-moon theme-icon"></i><span class="theme-label">Night Mode</span>';
-            }
-        });
-
-        // Start button - scroll to timeline
-        startBtn.addEventListener('click', () => {
-            if (timelineSection) {
-                timelineSection.scrollIntoView({ behavior: 'smooth' });
-            }
-
-            if (!isMusicPlaying) {
                 backgroundMusic.play().then(() => {
-                    isMusicPlaying = true;
                     musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+                    isPlaying = true;
                 }).catch(() => {
-                    // Ignore: user can press the music button to try again
+                    alert('Please add your music file and update the audio source in the HTML.');
                 });
             }
-
-            setTimeout(() => {
-                createTimelineAmbient();
-                startTimelineSequence();
-                startAutoScroll();
-            }, 700);
         });
 
-        // Create floating elements for hero section
-        for (let i = 0; i < 20; i++) {
-            const heart = document.createElement('div');
-            heart.className = Math.random() > 0.5 ? 'floating-heart' : 'floating-flower';
-            heart.innerHTML = Math.random() > 0.5 ? '❤️' : '🌸';
-            heart.style.left = `${Math.random() * 100}%`;
-            heart.style.top = `${Math.random() * 100}%`;
-            heart.style.animationDelay = `${Math.random() * 5}s`;
-            heart.style.fontSize = `${Math.random() * 20 + 15}px`;
-            floatingElements.appendChild(heart);
-        }
-
-        // Cursor following hearts
+        // Cursor Hearts
         document.addEventListener('mousemove', (e) => {
-            const heart = document.createElement('div');
-            heart.className = 'cursor-heart';
-            heart.style.left = `${e.clientX}px`;
-            heart.style.top = `${e.clientY}px`;
-            heart.style.opacity = '1';
-            
-            cursorHearts.appendChild(heart);
-            
-            // Remove heart after animation
-            setTimeout(() => {
-                heart.style.opacity = '0';
+            if (Math.random() > 0.95) {
+                const heart = document.createElement('div');
+                heart.className = 'cursor-heart';
+                heart.style.left = e.clientX + 'px';
+                heart.style.top = e.clientY + 'px';
+                heart.style.opacity = '1';
+                document.body.appendChild(heart);
                 setTimeout(() => {
-                    if (heart.parentNode) {
-                        heart.parentNode.removeChild(heart);
-                    }
-                }, 300);
-            }, 1000);
+                    heart.style.opacity = '0';
+                    setTimeout(() => heart.remove(), 300);
+                }, 1000);
+            }
         });
 
-        // Timeline ambience
-        function createTimelineAmbient() {
-            if (!timelineAmbient) return;
+        // Start Button
+        document.getElementById('startBtn').addEventListener('click', () => {
+            document.getElementById('timeline').scrollIntoView({ behavior: 'smooth' });
+        });
 
-            if (timelineAmbient.childElementCount > 0) return;
+        // Timeline Animations
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const timelineFill = document.getElementById('timelineFill');
+        const ambientContainer = document.getElementById('ambientContainer');
 
-            const shapes = [];
-            const makeShape = (type, symbol) => {
-                const el = document.createElement('div');
-                el.className = `ambient-shape ${type}`;
-                el.textContent = symbol;
-                el.style.left = `${Math.random() * 100}%`;
-                el.style.top = `${Math.random() * 100}%`;
-                el.style.fontSize = `${Math.random() * 18 + 10}px`;
-                el.style.animationDuration = `${Math.random() * 10 + 12}s`;
-                el.style.animationDelay = `${Math.random() * 8}s`;
-                timelineAmbient.appendChild(el);
-                shapes.push(el);
-            };
-
-            for (let i = 0; i < 14; i++) makeShape('ambient-heart', '❤');
-            for (let i = 0; i < 10; i++) makeShape('ambient-flower', '❀');
-            for (let i = 0; i < 18; i++) makeShape('ambient-particle', '·');
-        }
-
-        // Timeline reveal (one-by-one) + progress glow
-        let timelineStarted = false;
-        function updateTimelineFill() {
-            if (!timelineSection) return;
-            const rect = timelineSection.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            if (rect.top >= windowHeight || rect.bottom <= 0) return;
-
-            const scrollPercent = Math.min(1, Math.max(0,
-                (windowHeight - rect.top) / (rect.height + windowHeight)
-            ));
-            timelineFill.style.height = `${scrollPercent * 100}%`;
-
-            const allVisible = Array.from(timelineItems).every((i) => i.classList.contains('visible'));
-            if (allVisible && timelineFinale) {
-                timelineFinale.classList.add('visible');
+        // Create ambient particles
+        function createAmbientParticles() {
+            const shapes = ['❤️', '🌸', '✨'];
+            for (let i = 0; i < 20; i++) {
+                const shape = document.createElement('div');
+                shape.className = 'ambient-shape';
+                const type = Math.floor(Math.random() * 3);
+                if (type === 0) shape.className += ' ambient-heart';
+                else if (type === 1) shape.className += ' ambient-flower';
+                else shape.className += ' ambient-particle';
+                shape.textContent = shapes[type];
+                shape.style.left = Math.random() * 100 + '%';
+                shape.style.animationDuration = (8 + Math.random() * 12) + 's';
+                shape.style.animationDelay = Math.random() * 5 + 's';
+                ambientContainer.appendChild(shape);
             }
         }
+        createAmbientParticles();
 
-        function startTimelineSequence() {
-            if (timelineStarted) return;
-            timelineStarted = true;
-
-            timelineItems.forEach((item, idx) => {
-                setTimeout(() => {
-                    item.classList.add('visible');
-                    item.classList.add('active');
-                    setTimeout(() => item.classList.remove('active'), 900);
-                    updateTimelineFill();
-                }, idx * 850);
-            });
-        }
-
-        const timelineObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
+        // Intersection Observer for timeline items
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    startTimelineSequence();
+                    entry.target.classList.add('visible');
+                    entry.target.classList.add('active');
+                    setTimeout(() => entry.target.classList.remove('active'), 2000);
                 }
             });
-        }, { threshold: 0.25 });
+        }, { threshold: 0.3 });
 
-        if (timelineSection) {
-            timelineObserver.observe(timelineSection);
-        }
+        timelineItems.forEach(item => observer.observe(item));
 
-        window.addEventListener('scroll', updateTimelineFill, { passive: true });
-
-        // Click milestone to focus
-        timelineItems.forEach((item) => {
-            item.addEventListener('click', () => {
-                timelineItems.forEach((i) => i.classList.remove('active'));
-                item.classList.add('active');
-                setTimeout(() => item.classList.remove('active'), 1400);
-            });
-        });
-
-        // Gentle auto-scroll through the timeline (stops on interaction)
-        let autoScrollRaf = null;
-        let autoScrollEnabled = false;
-        let autoScrollStart = 0;
-
-        function stopAutoScroll() {
-            autoScrollEnabled = false;
-            if (autoScrollRaf) cancelAnimationFrame(autoScrollRaf);
-            autoScrollRaf = null;
-        }
-
-        function autoScrollFrame(ts) {
-            if (!autoScrollEnabled || !timelineSection) return;
-            if (!autoScrollStart) autoScrollStart = ts;
-
-            const rect = timelineSection.getBoundingClientRect();
-            const withinTimeline = rect.top < window.innerHeight * 0.3 && rect.bottom > window.innerHeight * 0.4;
-            if (!withinTimeline) {
-                stopAutoScroll();
-                return;
-            }
-
-            const t = (ts - autoScrollStart) / 1000;
-            const ease = 0.6 + 0.4 * Math.sin(t * 0.6);
-            const delta = 0.35 * ease;
-
-            window.scrollBy({ top: delta, left: 0, behavior: 'auto' });
-            updateTimelineFill();
-            autoScrollRaf = requestAnimationFrame(autoScrollFrame);
-        }
-
-        function startAutoScroll() {
-            if (autoScrollEnabled) return;
-            autoScrollEnabled = true;
-            autoScrollStart = 0;
-            autoScrollRaf = requestAnimationFrame(autoScrollFrame);
-        }
-
-        const stopEvents = ['wheel', 'touchstart', 'keydown', 'mousedown'];
-        stopEvents.forEach((evt) => window.addEventListener(evt, stopAutoScroll, { passive: true }));
-
-        if (timelineSection) {
-            timelineSection.addEventListener('mouseenter', stopAutoScroll);
-        }
-
-        // Build ambience eagerly too (in case user scrolls to timeline without clicking start)
-        createTimelineAmbient();
-
-        // Create photo gallery
-        const photos = [
-            { src: 'https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', caption: 'My Beautiful Amma' },
-            { src: 'https://images.unsplash.com/photo-1529068755472-9f6c0e4b72c6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', caption: 'Family Love' },
-            { src: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', caption: 'Precious Moments' },
-            { src: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', caption: 'Happy Times' },
-            { src: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', caption: 'Mother\'s Smile' },
-            { src: 'https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60', caption: 'Together Forever' }
-        ];
-
-        photos.forEach((photo, index) => {
-            const polaroid = document.createElement('div');
-            polaroid.className = 'polaroid';
-            polaroid.style.setProperty('--rotate', `${(Math.random() * 10 - 5)}deg`);
+        // Timeline progress
+        window.addEventListener('scroll', () => {
+            const timeline = document.getElementById('timeline');
+            const rect = timeline.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const timelineTop = rect.top + scrollTop;
+            const timelineHeight = timeline.offsetHeight;
+            const windowHeight = window.innerHeight;
             
-            const img = document.createElement('img');
-            img.className = 'polaroid-img';
-            img.src = photo.src;
-            img.alt = photo.caption;
-            
-            const caption = document.createElement('div');
-            caption.className = 'polaroid-caption';
-            caption.textContent = photo.caption;
-            
-            const heartBurst = document.createElement('div');
-            heartBurst.className = 'heart-burst';
-            
-            polaroid.appendChild(img);
-            polaroid.appendChild(caption);
-            polaroid.appendChild(heartBurst);
-            
-            // Hover effect for heart burst
-            polaroid.addEventListener('mouseenter', () => {
-                heartBurst.style.opacity = '1';
-                heartBurst.innerHTML = '❤️❤️❤️';
-                heartBurst.style.fontSize = '20px';
-                heartBurst.style.textAlign = 'center';
-                heartBurst.style.paddingTop = '80px';
+            if (scrollTop + windowHeight > timelineTop && scrollTop < timelineTop + timelineHeight) {
+                const progress = Math.min(1, Math.max(0, (scrollTop + windowHeight - timelineTop) / timelineHeight));
+                timelineFill.style.height = (progress * 100) + '%';
                 
-                // Reset after animation
-                setTimeout(() => {
-                    heartBurst.style.opacity = '0';
-                    setTimeout(() => {
-                        heartBurst.innerHTML = '';
-                    }, 300);
-                }, 800);
-            });
-            
-            // Click to open modal
-            polaroid.addEventListener('click', () => {
-                modalImage.src = photo.src;
-                modalImage.alt = photo.caption;
-                imageModal.style.display = 'flex';
-            });
-            
-            galleryContainer.appendChild(polaroid);
-        });
-
-        // Close modal
-        modalClose.addEventListener('click', () => {
-            imageModal.style.display = 'none';
-        });
-
-        // Close modal when clicking outside the image
-        imageModal.addEventListener('click', (e) => {
-            if (e.target === imageModal) {
-                imageModal.style.display = 'none';
+                if (progress > 0.9) {
+                    document.getElementById('timelineFinale').classList.add('visible');
+                }
             }
         });
 
-        // Letter animation - reveal lines one by one
-        const observerOptions = {
-            threshold: 0.5
-        };
+        // Photo Gallery
+        const polaroids = document.querySelectorAll('.polaroid');
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalClose = document.getElementById('modalClose');
 
+        polaroids.forEach(polaroid => {
+            polaroid.addEventListener('mouseenter', function() {
+                const burst = this.querySelector('.heart-burst');
+                burst.style.opacity = '1';
+                burst.style.animation = 'heartBurst 0.6s ease-out';
+                setTimeout(() => burst.style.opacity = '0', 600);
+            });
+
+            polaroid.addEventListener('click', function() {
+                const img = this.querySelector('.polaroid-img');
+                modalImg.src = img.src;
+                modal.classList.add('active');
+            });
+        });
+
+        modalClose.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        // Letter Animation
+        const letterLines = document.querySelectorAll('.letter-line');
         const letterObserver = new IntersectionObserver((entries) => {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
-                    letterLines.forEach((line, i) => {
-                        setTimeout(() => {
-                            line.classList.add('visible');
-                        }, i * 800);
-                    });
-                    letterObserver.unobserve(entry.target);
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 500);
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.5 });
 
-        letterObserver.observe(document.getElementById('letter'));
+        letterObserver.observe(document.getElementById('letterText'));
 
-        // Birthday surprise
-        // Create balloons
-        const balloonColors = ['#FF6B6B', '#4ECDC4', '#FFD166', '#06D6A0', '#118AB2', '#EF476F'];
-        for (let i = 0; i < 15; i++) {
+        // Birthday Surprise
+        const balloonsContainer = document.getElementById('balloonsContainer');
+        const colors = ['#ff6b6b', '#4ecdc4', '#ffe66d', '#a8e6cf', '#ffaaa5'];
+
+        function createBalloon() {
             const balloon = document.createElement('div');
             balloon.className = 'balloon';
-            balloon.style.left = `${Math.random() * 100}%`;
-            balloon.style.backgroundColor = balloonColors[Math.floor(Math.random() * balloonColors.length)];
-            balloon.style.animationDelay = `${Math.random() * 10}s`;
-            balloon.style.animationDuration = `${Math.random() * 10 + 10}s`;
-            
-            const string = document.createElement('div');
-            string.className = 'balloon-string';
-            
-            balloon.appendChild(string);
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            balloon.style.backgroundColor = color;
+            balloon.style.left = Math.random() * 100 + '%';
+            balloon.style.animationDuration = (10 + Math.random() * 10) + 's';
             balloonsContainer.appendChild(balloon);
+            setTimeout(() => balloon.remove(), 20000);
         }
 
-        // Blow candle function
-        blowBtn.addEventListener('click', () => {
-            // Blow out candle
-            cakeFlame.style.opacity = '0';
-            cakeFlame.style.transform = 'translateX(-50%) scale(0.5)';
-            
-            // Show wish text
-            setTimeout(() => {
-                wishText.classList.add('visible');
-            }, 500);
-            
-            // Create confetti
-            createConfetti();
-            
-            // Change button text
-            blowBtn.textContent = 'Wish Granted! 🎉';
-            blowBtn.disabled = true;
-            
-            // Play celebration sound
-            const celebrationSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-happy-birthday-horn-576.mp3');
-            celebrationSound.play().catch(e => console.log("Audio play failed: ", e));
-        });
+        setInterval(createBalloon, 2000);
 
-        // Create confetti function
-        function createConfetti() {
-            const confettiCount = 150;
-            const colors = ['#FF6B6B', '#4ECDC4', '#FFD166', '#06D6A0', '#118AB2', '#EF476F', '#FFD700'];
-            
-            for (let i = 0; i < confettiCount; i++) {
+        const blowBtn = document.getElementById('blowBtn');
+        const cakeFlame = document.getElementById('cakeFlame');
+        const wishText = document.getElementById('wishText');
+        const confettiContainer = document.getElementById('confettiContainer');
+
+        blowBtn.addEventListener('click', () => {
+            cakeFlame.classList.add('blown');
+            wishText.classList.add('visible');
+            blowBtn.style.display = 'none';
+
+            // Confetti
+            for (let i = 0; i < 50; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
-                confetti.style.left = `${Math.random() * 100}%`;
-                confetti.style.top = `${Math.random() * 100}%`;
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = Math.random() * 100 + '%';
                 confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
                 confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-                confetti.style.width = `${Math.random() * 10 + 5}px`;
-                confetti.style.height = `${Math.random() * 10 + 5}px`;
+                confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                confetti.style.height = (Math.random() * 10 + 5) + 'px';
                 confetti.style.opacity = '1';
-                
+                confetti.style.animation = `confettiFall ${2 + Math.random() * 2}s ease-out forwards`;
                 confettiContainer.appendChild(confetti);
-                
-                // Animate confetti
-                const angle = Math.random() * Math.PI * 2;
-                const velocity = 30 + Math.random() * 20;
-                const gravity = 0.1;
-                
-                let x = 0;
-                let y = 0;
-                let vx = Math.cos(angle) * velocity;
-                let vy = Math.sin(angle) * velocity;
-                
-                function animateConfetti() {
-                    x += vx;
-                    y += vy;
-                    vy += gravity;
-                    
-                    confetti.style.transform = `translate(${x}px, ${y}px) rotate(${x * 2}deg)`;
-                    confetti.style.opacity = `${1 - (y / 500)}`;
-                    
-                    if (y < 500) {
-                        requestAnimationFrame(animateConfetti);
-                    } else {
-                        confetti.remove();
-                    }
-                }
-                
-                requestAnimationFrame(animateConfetti);
+                setTimeout(() => confetti.remove(), 4000);
             }
-        }
+        });
 
-        // Create floating words in final section
-        const words = [
-            { text: 'Love ❤️', color: '#FF6B6B' },
-            { text: 'Strength 💪', color: '#4ECDC4' },
-            { text: 'Angel 👼', color: '#FFD166' },
-            { text: 'Queen 👑', color: '#06D6A0' },
-            { text: 'Care 🥰', color: '#118AB2' },
-            { text: 'Wisdom 📚', color: '#EF476F' },
-            { text: 'Grace 🌸', color: '#FFD700' },
-            { text: 'Hero 🦸', color: '#9D4EDD' }
-        ];
+        // Add confetti animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes confettiFall {
+                to {
+                    transform: translateY(100vh) rotate(720deg);
+                    opacity: 0;
+                }
+            }
+            @keyframes heartBurst {
+                0% { transform: scale(0); opacity: 0; }
+                50% { transform: scale(1.5); opacity: 1; }
+                100% { transform: scale(1); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Final Blessing
+        const floatingWordsContainer = document.getElementById('floatingWordsContainer');
+        const words = ['Love ❤️', 'Strength 💪', 'Angel 👼', 'Queen 👑', 'Care 🥰', 'Wisdom 📚', 'Grace 🌸', 'Hero 🦸'];
 
         words.forEach((word, index) => {
-            const wordElement = document.createElement('div');
-            wordElement.className = 'floating-word';
-            wordElement.textContent = word.text;
-            wordElement.style.color = word.color;
-            wordElement.style.animationDelay = `${index * 2}s`;
-            wordElement.style.left = `${Math.random() * 90 + 5}%`;
-            wordElement.style.top = `${Math.random() * 90 + 5}%`;
-            
-            floatingWords.appendChild(wordElement);
+            const wordEl = document.createElement('div');
+            wordEl.className = 'floating-word';
+            wordEl.textContent = word;
+            wordEl.style.left = (10 + (index % 4) * 25) + '%';
+            wordEl.style.top = (20 + Math.floor(index / 4) * 30) + '%';
+            wordEl.style.animationDelay = index * 0.5 + 's';
+            wordEl.style.color = colors[index % colors.length];
+            floatingWordsContainer.appendChild(wordEl);
         });
 
-        // Initialize timeline items as hidden
-        timelineItems.forEach(item => {
-            item.style.opacity = '0';
-            item.style.transform = 'translateY(50px)';
-        });
-
-        // Trigger initial animations on load
-        window.addEventListener('load', () => {
-            // Start music automatically (with user interaction fallback)
-            setTimeout(() => {
-                if (!isMusicPlaying) {
-                    backgroundMusic.play().then(() => {
-                        isMusicPlaying = true;
-                        musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
-                    }).catch(() => {
-                        // Autoplay was prevented, wait for user interaction
-                        console.log("Waiting for user interaction to play music");
-                    });
+        const finalText = document.getElementById('finalText');
+        const blessingObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        finalText.style.opacity = '1';
+                    }, 1000);
                 }
-            }, 1000);
-            
-            // Add scroll to video button functionality
-            const videoSection = document.getElementById('video');
-            const videoObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Video section is visible - could add auto-play here if desired
-                        console.log("Video section visible");
+            });
+        }, { threshold: 0.5 });
+
+        blessingObserver.observe(document.getElementById('blessing'));
+
+        // Parallax Effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.getElementById('hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Auto-scroll timeline on start
+        document.getElementById('startBtn').addEventListener('click', () => {
+            setTimeout(() => {
+                const timeline = document.getElementById('timeline');
+                const timelineItems = timeline.querySelectorAll('.timeline-item');
+                let index = 0;
+                const scrollToNext = () => {
+                    if (index < timelineItems.length) {
+                        timelineItems[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        index++;
+                        setTimeout(scrollToNext, 3000);
                     }
-                });
-            }, { threshold: 0.5 });
-            
-            videoObserver.observe(videoSection);
+                };
+                scrollToNext();
+            }, 500);
         });
     </script>
 </body>
