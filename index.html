@@ -32,11 +32,41 @@
             background-color: var(--light-pink);
             overflow-x: hidden;
             transition: var(--transition-slow);
+            scroll-behavior: smooth;
         }
 
         body.night-mode {
             background-color: #2c1810;
             color: #ffecb3;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--rose-pink) 0%, var(--lavender) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease;
+        }
+
+        .loading-heart {
+            font-size: 4rem;
+            color: var(--dark-pink);
+            animation: heartbeat 1.5s infinite;
+            margin-bottom: 20px;
+        }
+
+        .loading-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: var(--dark-pink);
         }
 
         /* Cursor hearts */
@@ -137,6 +167,41 @@
             font-size: 14px;
         }
 
+        /* Navigation Dots */
+        .nav-dots {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--dark-pink);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            opacity: 0.5;
+        }
+
+        body.night-mode .nav-dot {
+            background-color: var(--gold);
+        }
+
+        .nav-dot.active {
+            opacity: 1;
+            transform: scale(1.3);
+        }
+
+        .nav-dot:hover {
+            transform: scale(1.5);
+        }
+
         /* Section Common */
         .section {
             min-height: 100vh;
@@ -221,6 +286,9 @@
         .typewriter-container {
             margin-bottom: 40px;
             min-height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .typewriter {
@@ -231,6 +299,7 @@
             overflow: hidden;
             border-right: 3px solid var(--dark-pink);
             white-space: nowrap;
+            letter-spacing: 2px;
             animation: typing 3.5s steps(30, end), blink-caret 0.75s step-end infinite;
         }
 
@@ -275,6 +344,25 @@
             transform: scale(1.05);
             box-shadow: 0 12px 25px rgba(216, 27, 96, 0.4);
             animation: heartbeat 1.5s infinite;
+        }
+
+        .start-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+        }
+
+        .start-btn:hover::after {
+            animation: shine 1.5s ease;
+        }
+
+        @keyframes shine {
+            100% { transform: translateX(100%); }
         }
 
         @keyframes heartbeat {
@@ -433,6 +521,11 @@
             font-size: 24px;
             z-index: 2;
             box-shadow: 0 0 0 10px var(--cream);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-icon {
+            transform: translateX(-50%) scale(1.1);
         }
 
         body.night-mode .timeline-icon {
@@ -541,6 +634,11 @@
             height: 200px;
             object-fit: cover;
             display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .polaroid:hover .polaroid-img {
+            transform: scale(1.05);
         }
 
         .polaroid-caption {
@@ -549,6 +647,7 @@
             font-size: 1.5rem;
             margin-top: 15px;
             color: var(--text-dark);
+            transition: color 0.3s ease;
         }
 
         body.night-mode .polaroid-caption {
@@ -557,10 +656,10 @@
 
         .heart-burst {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
             pointer-events: none;
             z-index: 2;
             opacity: 0;
@@ -579,6 +678,12 @@
             justify-content: center;
             align-items: center;
             backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal.active {
@@ -590,6 +695,12 @@
             max-height: 90%;
             border-radius: 10px;
             box-shadow: 0 0 50px rgba(255, 255, 255, 0.2);
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .modal-close {
@@ -600,10 +711,12 @@
             font-size: 40px;
             cursor: pointer;
             transition: var(--transition-fast);
+            z-index: 2001;
         }
 
         .modal-close:hover {
             color: var(--rose-pink);
+            transform: scale(1.2);
         }
 
         /* Letter Section */
@@ -627,6 +740,7 @@
             border-radius: 5px;
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
         }
 
         body.night-mode .letter-container {
@@ -638,8 +752,8 @@
             font-size: 2rem;
             line-height: 1.8;
             color: var(--text-dark);
-            opacity: 0;
-            transform: translateY(20px);
+            opacity: 1;
+            transform: translateY(0);
             transition: opacity 1s, transform 1s;
         }
 
@@ -649,6 +763,9 @@
 
         .letter-line {
             margin-bottom: 25px;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
 
         .letter-line.visible {
@@ -706,6 +823,12 @@
             border-radius: 50%;
             bottom: -100px;
             animation: float-up 15s linear infinite;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            z-index: 1;
         }
 
         .balloon-string {
@@ -719,8 +842,8 @@
         }
 
         @keyframes float-up {
-            0% { bottom: -100px; opacity: 1; }
-            100% { bottom: 100vh; opacity: 0; }
+            0% { bottom: -100px; opacity: 1; transform: translateX(0) rotate(0deg); }
+            100% { bottom: 100vh; opacity: 0; transform: translateX(20px) rotate(10deg); }
         }
 
         .cake-container {
@@ -790,6 +913,7 @@
             transition: var(--transition-fast);
             z-index: 2;
             position: relative;
+            overflow: hidden;
         }
 
         body.night-mode .blow-btn {
@@ -810,6 +934,7 @@
             transform: scale(0.5);
             transition: var(--transition-slow);
             text-align: center;
+            padding: 0 20px;
         }
 
         body.night-mode .wish-text {
@@ -819,6 +944,12 @@
         .wish-text.visible {
             opacity: 1;
             transform: scale(1);
+            animation: wishGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes wishGlow {
+            0%, 100% { text-shadow: 0 0 10px rgba(216, 27, 96, 0.3); }
+            50% { text-shadow: 0 0 20px rgba(216, 27, 96, 0.5); }
         }
 
         .confetti {
@@ -826,6 +957,324 @@
             width: 10px;
             height: 10px;
             opacity: 0;
+            z-index: 1;
+        }
+
+        /* Cake Cutting Section */
+        .cake-cutting {
+            background: linear-gradient(135deg, #fff9c4 0%, #ffecb3 100%);
+        }
+
+        body.night-mode .cake-cutting {
+            background: linear-gradient(135deg, #4a3a1a 0%, #3a2a1a 100%);
+        }
+
+        .cake-frame-container {
+            width: 100%;
+            max-width: 900px;
+            aspect-ratio: 16 / 9;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow:
+                0 18px 45px rgba(0, 0, 0, 0.18),
+                0 0 40px rgba(255, 182, 193, 0.4);
+            position: relative;
+            background: radial-gradient(circle at top, #ffe6f0 0%, #fefaf5 45%, #fbefff 100%);
+            margin-top: 30px;
+        }
+
+        body.night-mode .cake-frame-container {
+            background: radial-gradient(circle at top, #3a2a1a 0%, #2c1a10 45%, #4a2a2a 100%);
+        }
+
+        .cake-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* Garden of Love Section */
+        .garden {
+            background: linear-gradient(to bottom, #e8f5e9 0%, #f1f8e9 50%, #fff9c4 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.night-mode .garden {
+            background: linear-gradient(to bottom, #2d4a2d 0%, #3a4a2a 50%, #4a3a1a 100%);
+        }
+
+        .garden-container {
+            width: 100%;
+            max-width: 1400px;
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .garden-ground {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to top, #8bc34a 0%, #9ccc65 50%, #aed581 100%);
+            border-top: 3px solid #689f38;
+        }
+
+        body.night-mode .garden-ground {
+            background: linear-gradient(to top, #558b2f 0%, #689f38 50%, #7cb342 100%);
+            border-top-color: #33691e;
+        }
+
+        .flower {
+            position: absolute;
+            cursor: pointer;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            z-index: 10;
+            animation: flowerGrow 1.5s ease-out forwards;
+            opacity: 0;
+            text-align: center;
+        }
+
+        .flower.visible {
+            opacity: 1;
+        }
+
+        .flower:hover {
+            transform: scale(1.2) translateY(-5px);
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+        }
+
+        .flower.rose {
+            color: #e91e63;
+        }
+
+        .flower.jasmine {
+            color: #fff9c4;
+        }
+
+        .flower.lotus {
+            color: #f8bbd0;
+        }
+
+        .flower-icon {
+            font-size: 4rem;
+            display: block;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            animation: flowerSway 3s ease-in-out infinite;
+        }
+
+        .flower.rose .flower-icon {
+            animation-delay: 0s;
+        }
+
+        .flower.jasmine .flower-icon {
+            animation-delay: 0.5s;
+        }
+
+        .flower.lotus .flower-icon {
+            animation-delay: 1s;
+        }
+
+        /* Flower positions */
+        .flower-pos-1 { left: 15%; bottom: 200px; }
+        .flower-pos-2 { left: 25%; bottom: 180px; }
+        .flower-pos-3 { left: 35%; bottom: 190px; }
+        .flower-pos-4 { left: 50%; bottom: 200px; }
+        .flower-pos-5 { left: 60%; bottom: 185px; }
+        .flower-pos-6 { left: 70%; bottom: 195px; }
+        .flower-pos-7 { left: 20%; bottom: 170px; }
+        .flower-pos-8 { left: 45%; bottom: 175px; }
+        .flower-pos-9 { left: 65%; bottom: 180px; }
+        .flower-pos-10 { left: 80%; bottom: 185px; }
+
+        @keyframes flowerGrow {
+            0% {
+                transform: scale(0) translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes flowerSway {
+            0%, 100% {
+                transform: rotate(-2deg);
+            }
+            50% {
+                transform: rotate(2deg);
+            }
+        }
+
+        .flower-label {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Dancing Script', cursive;
+            font-size: 1rem;
+            color: var(--text-dark);
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        body.night-mode .flower-label {
+            color: #ffecb3;
+            background: rgba(44, 24, 16, 0.8);
+        }
+
+        .flower:hover .flower-label {
+            opacity: 1;
+        }
+
+        /* Memory Modal for Garden */
+        .memory-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.4s ease;
+        }
+
+        .memory-modal.active {
+            display: flex;
+        }
+
+        .memory-content {
+            background: linear-gradient(135deg, #fffef2 0%, #fff9e6 100%);
+            padding: 50px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: slideUp 0.5s ease;
+            border: 3px solid var(--rose-pink);
+        }
+
+        body.night-mode .memory-content {
+            background: linear-gradient(135deg, #5d4037 0%, #4a2c1c 100%);
+            border-color: var(--gold);
+            color: #ffecb3;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .memory-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 32px;
+            color: var(--dark-pink);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            line-height: 1;
+        }
+
+        body.night-mode .memory-close {
+            color: var(--gold);
+        }
+
+        .memory-close:hover {
+            transform: rotate(90deg) scale(1.2);
+        }
+
+        .memory-flower-icon {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: flowerSway 2s ease-in-out infinite;
+        }
+
+        .memory-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: var(--dark-pink);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        body.night-mode .memory-title {
+            color: var(--gold);
+        }
+
+        .memory-text {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            text-align: center;
+        }
+
+        body.night-mode .memory-text {
+            color: #ffecb3;
+        }
+
+        .garden-ending {
+            margin-top: 60px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+            z-index: 20;
+            position: relative;
+        }
+
+        .garden-ending.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .garden-ending-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: var(--dark-pink);
+            text-shadow: 0 4px 12px rgba(216, 27, 96, 0.3);
+            animation: textBloom 3s ease-in-out infinite;
+        }
+
+        body.night-mode .garden-ending-text {
+            color: var(--gold);
+            text-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+        }
+
+        @keyframes textBloom {
+            0%, 100% {
+                transform: scale(1);
+                text-shadow: 0 4px 12px rgba(216, 27, 96, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                text-shadow: 0 8px 20px rgba(216, 27, 96, 0.5), 0 0 30px rgba(255, 215, 0, 0.3);
+            }
         }
 
         /* Final Blessing */
@@ -847,6 +1296,12 @@
             box-shadow: 0 20px 60px rgba(255, 215, 0, 0.4);
             margin-bottom: 40px;
             animation: photoGlow 3s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.5s ease;
+        }
+
+        .blessing-photo:hover {
+            transform: scale(1.05);
         }
 
         @keyframes photoGlow {
@@ -860,12 +1315,14 @@
             font-size: 1.5rem;
             opacity: 0;
             animation: wordFloat 8s ease-in-out infinite;
+            pointer-events: none;
         }
 
         @keyframes wordFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
             20% { opacity: 1; }
             80% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(10deg); opacity: 0; }
         }
 
         .final-text {
@@ -887,6 +1344,22 @@
             50% { opacity: 1; text-shadow: 0 0 20px rgba(216, 27, 96, 0.6), 0 0 30px rgba(255, 215, 0, 0.4); }
         }
 
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(to right, var(--dark-pink), var(--gold));
+            z-index: 1001;
+            transition: width 0.3s ease;
+        }
+
+        body.night-mode .progress-bar {
+            background: linear-gradient(to right, var(--gold), #ff9800);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .section-title {
@@ -901,38 +1374,78 @@
             .gallery-container {
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             }
-
-            /* Ensure embedded cake frame looks good on mobile */
-            .cake-frame-container {
-                width: 100%;
-                max-width: 100%;
-                padding: 0 10px;
+            .letter-container {
+                padding: 30px;
+            }
+            .letter-text {
+                font-size: 1.5rem;
+            }
+            .flower-icon {
+                font-size: 3rem;
+            }
+            .memory-content {
+                padding: 30px;
+            }
+            .memory-title {
+                font-size: 2rem;
+            }
+            .memory-text {
+                font-size: 1rem;
+            }
+            .garden-ending-text {
+                font-size: 2.5rem;
+            }
+            .blessing-photo {
+                width: 250px;
+                height: 250px;
+            }
+            .final-text {
+                font-size: 2.5rem;
+            }
+            .nav-dots {
+                right: 10px;
+                gap: 10px;
+            }
+            .music-player, .theme-toggle {
+                padding: 8px 12px;
+                font-size: 0.9rem;
             }
         }
 
-        /* Embedded cake-cutting iframe styling */
-        .cake-frame-container {
-            width: 100%;
-            max-width: 900px;
-            aspect-ratio: 16 / 9;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow:
-                0 18px 45px rgba(0, 0, 0, 0.18),
-                0 0 40px rgba(255, 182, 193, 0.4);
-            position: relative;
-            background: radial-gradient(circle at top, #ffe6f0 0%, #fefaf5 45%, #fbefff 100%);
-        }
-
-        .cake-frame {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
+        @media (max-width: 480px) {
+            .typewriter {
+                font-size: 1.8rem;
+            }
+            .start-btn {
+                padding: 12px 25px;
+                font-size: 1.2rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .timeline-content {
+                width: 90%;
+                padding: 20px;
+            }
+            .timeline-title {
+                font-size: 1.8rem;
+            }
+            .wish-text {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-heart">❤️</div>
+        <div class="loading-text">Loading Love for Amma...</div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
     <!-- Music Player -->
     <div class="music-player">
         <span class="music-label">Music</span>
@@ -942,6 +1455,7 @@
     </div>
     <audio id="backgroundMusic" loop>
         <!-- Add your music file: <source src="music/amma-veena.mp3" type="audio/mpeg"> -->
+        <!-- You can add background music by uncommenting the line above and adding your music file -->
     </audio>
 
     <!-- Day/Night Toggle -->
@@ -949,6 +1463,9 @@
         <span class="theme-icon">🌙</span>
         <span class="theme-label">Night Mode</span>
     </div>
+
+    <!-- Navigation Dots -->
+    <div class="nav-dots" id="navDots"></div>
 
     <!-- Landing Page -->
     <section class="section hero" id="hero">
@@ -965,64 +1482,339 @@
     </section>
 
     <!-- Timeline Section -->
-    <section class="section timeline" id="timeline">
-        <h2 class="section-title">Memory Timeline</h2>
-        <div class="timeline-container">
-            <div class="timeline-ambient" id="ambientContainer"></div>
-            <div class="timeline-line">
-                <div class="timeline-line-fill" id="timelineFill"></div>
-            </div>
+<section class="section timeline" id="timeline">
+    <h2 class="section-title">அம்மா – வாழ்க்கை பயணம் 💖</h2>
+    <div class="timeline-container">
 
-            <div class="timeline-item" data-index="0">
-                <div class="timeline-content">
-                    <div class="timeline-icon">👶</div>
-                    <h3 class="timeline-title">Childhood</h3>
-                    <p class="timeline-text">Those innocent days filled with laughter, dreams, and endless love. Every memory is a treasure.</p>
-                </div>
-            </div>
+        <div class="timeline-ambient" id="ambientContainer"></div>
+        <div class="timeline-line">
+            <div class="timeline-line-fill" id="timelineFill"></div>
+        </div>
 
-            <div class="timeline-item" data-index="1">
-                <div class="timeline-content">
-                    <div class="timeline-icon">💑</div>
-                    <h3 class="timeline-title">Marriage</h3>
-                    <p class="timeline-text">A new beginning, a new chapter. Building a home filled with warmth and love.</p>
-                </div>
-            </div>
-
-            <div class="timeline-item" data-index="2">
-                <div class="timeline-content">
-                    <div class="timeline-icon">👶</div>
-                    <h3 class="timeline-title">Me as a Baby</h3>
-                    <p class="timeline-text">The moment you became a mother. Your world changed, and so did mine. Forever grateful.</p>
-                </div>
-            </div>
-
-            <div class="timeline-item" data-index="3">
-                <div class="timeline-content">
-                    <div class="timeline-icon">👨‍👩‍👧‍👦</div>
-                    <h3 class="timeline-title">Family Memories</h3>
-                    <p class="timeline-text">Countless moments of joy, sacrifice, and unconditional love. You are our foundation.</p>
-                </div>
-            </div>
-
-            <div class="timeline-finale" id="timelineFinale">
-                என் வாழ்க்கையின் அழகான காலவரிசை – என் அம்மா 💖
+        <div class="timeline-item" data-index="0">
+            <div class="timeline-content">
+            
+                <h3 class="timeline-title">1982 – பிறப்பு</h3>
+                <p class="timeline-text">
+                    16 ஜனவரி 1982 💕  
+                    இந்த உலகம் இன்னும் அழகாக மாறிய நாள்.  
+                    அன்பு, பொறுமை, பாசம் – எல்லாம் உங்க இதயத்தோட சேர்ந்து பிறந்த நாள் அம்மா.
+                </p>
             </div>
         </div>
-    </section>
+
+        <div class="timeline-item" data-index="1">
+            <div class="timeline-content">
+                
+                <h3 class="timeline-title">1997 – 10ஆம் வகுப்பு</h3>
+                <p class="timeline-text">
+                    சிரமங்களையும், கண்ணீரையும் தாண்டி  
+                    துணிச்சலோட முன்னே நடந்த காலம்.  
+                    உங்க மனவலிமை இங்க தான் தெரிஞ்சது அம்மா 💪
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item" data-index="2">
+            <div class="timeline-content">
+            
+                <h3 class="timeline-title">1999 – 12ஆம் வகுப்பு</h3>
+                <p class="timeline-text">
+                    கனவுகளுக்கு வடிவம் கிடைக்க ஆரம்பிச்ச நேரம்.  
+                    “நான் முடிப்பேன்”ன்னு நம்பிய உங்க நம்பிக்கை  
+                    இன்னொரு உயரத்துக்கு உங்களை கூட்டிச் சென்றது ✨
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item" data-index="3">
+            <div class="timeline-content">
+                
+                <h3 class="timeline-title">2000 – 2004 : B.Sc Zoology</h3>
+                <p class="timeline-text">
+                    அறிவும், ஒழுக்கமும், பொறுப்பும்  
+                    உங்க வாழ்க்கையோட ஒன்றாக கலந்த காலம்.  
+                    படிப்பிலும் வாழ்க்கையிலும் சிறந்தவளாக உருவான பருவம் 🌿
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item" data-index="4">
+            <div class="timeline-content">
+                
+                <h3 class="timeline-title">2004 – திருமணம்</h3>
+                <p class="timeline-text">
+                    ஒரு பெண்ணாக இருந்து  
+                    ஒரு குடும்பத்தின் அடித்தளமாக மாறிய நாள்.  
+                    உங்க அன்பு ஒரு வீட்டை “வீடாக” மாற்றியது அம்மா 💞
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item" data-index="5">
+            <div class="timeline-content">
+                
+                <h3 class="timeline-title">2005 – முதல் மகள்</h3>
+                <p class="timeline-text">
+                    “அம்மா”ன்னு உங்களை முதன்முதலா அழைத்த நாள்.  
+                    உங்க வாழ்க்கைக்கு  
+                    இன்னொரு அர்த்தம் கிடைத்த தருணம் 🥹
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item" data-index="6">
+            <div class="timeline-content">
+                
+                <h3 class="timeline-title">2007 – இரண்டாவது மகள்</h3>
+                <p class="timeline-text">
+                    பொறுப்புகள் அதிகமானாலும்  
+                    பாசம் இன்னும் பெருகியது.  
+                    உங்க இதயம் எவ்வளவு பெரியதுன்னு  
+                    உலகத்துக்கு உணர்த்திய காலம் 💖
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item" data-index="7">
+            <div class="timeline-content">
+                
+                <h3 class="timeline-title">2012 – மூன்றாவது மகன்</h3>
+                <p class="timeline-text">
+                    குடும்பம் முழுமை அடைந்த நாள்.  
+                    மூன்று குழந்தைகளுக்கும்  
+                    ஒரு உலகமாக நீங்க மாறினீங்க அம்மா ❤️
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-finale" id="timelineFinale">
+            அம்மா…  
+            உங்க வாழ்க்கை ஒரு சாதாரண கதை இல்லை.  
+            அது  
+            **தியாகமும், அன்பும், தெய்வீகமும் கலந்த ஒரு கவிதை** 📖✨  
+            உங்களை எப்போதும் காதலிக்கிறோம் 💖
+        </div>
+
+    </div>
+</section>
+
 
     <!-- Photo Gallery -->
-    <section class="section gallery" id="gallery">
-        <h2 class="section-title">Magic Gallery ✨</h2>
-        <div class="gallery-container">
-            <div class="polaroid polaroid-rotate" data-img="1.jpeg">
-                <div class="heart-burst">💥❤️</div>
-                <img src="1.jpeg" alt="Memory 1" class="polaroid-img" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2ZmYjZjMSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM1ZDMwMzciIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5NZW1vcnk8L3RleHQ+PC9zdmc+'">
-                <div class="polaroid-caption">Beautiful Memory</div>
-            </div>
-            <!-- Add more polaroids as needed -->
+   <!-- Photo Gallery -->
+<section class="section gallery" id="gallery">
+    <h2 class="section-title">Magic Gallery ✨</h2>
+    <div class="gallery-container">
+
+        <!-- Image 1 -->
+        <div class="polaroid polaroid-rotate" data-img="1">
+            <div class="heart-burst">💥❤️</div>
+            <img src="1.jpeg" alt="Memory 1" class="polaroid-img">
+            <div class="polaroid-caption">Beautiful Memory</div>
         </div>
-    </section>
+
+        <!-- Image 2 -->
+        <div class="polaroid" data-img="2">
+            <div class="heart-burst">💥❤️</div>
+            <img src="2.jpeg" alt="Memory 2" class="polaroid-img">
+            <div class="polaroid-caption">Sweet Moments</div>
+        </div>
+
+        <!-- Image 3 -->
+        <div class="polaroid polaroid-rotate" data-img="3">
+            <div class="heart-burst">💥❤️</div>
+            <img src="3.jpeg" alt="Memory 3" class="polaroid-img">
+            <div class="polaroid-caption">Cherished Times</div>
+        </div>
+
+        <!-- Image 4 -->
+        <div class="polaroid" data-img="4">
+            <div class="heart-burst">💥❤️</div>
+            <img src="4.jpeg" alt="Memory 4" class="polaroid-img">
+            <div class="polaroid-caption">Family Love</div>
+        </div>
+
+        <!-- Image 5 -->
+        <div class="polaroid polaroid-rotate" data-img="5">
+            <div class="heart-burst">💥❤️</div>
+            <img src="5.jpeg" alt="Memory 5" class="polaroid-img">
+            <div class="polaroid-caption">Precious Smile</div>
+        </div>
+
+        <!-- Image 6 -->
+        <div class="polaroid" data-img="6">
+            <div class="heart-burst">💥❤️</div>
+            <img src="6.jpeg" alt="Memory 6" class="polaroid-img">
+            <div class="polaroid-caption">Lovely Day</div>
+        </div>
+
+        <!-- Image 7 -->
+        <div class="polaroid polaroid-rotate" data-img="7">
+            <div class="heart-burst">💥❤️</div>
+            <img src="7.jpeg" alt="Memory 7" class="polaroid-img">
+            <div class="polaroid-caption">Happy Times</div>
+        </div>
+
+        <!-- Image 8 -->
+        <div class="polaroid" data-img="8">
+            <div class="heart-burst">💥❤️</div>
+            <img src="8.jpeg" alt="Memory 8" class="polaroid-img">
+            <div class="polaroid-caption">Golden Moment</div>
+        </div>
+
+        <!-- Image 9 -->
+        <div class="polaroid polaroid-rotate" data-img="9">
+            <div class="heart-burst">💥❤️</div>
+            <img src="9.jpeg" alt="Memory 9" class="polaroid-img">
+            <div class="polaroid-caption">Pure Love</div>
+        </div>
+
+        <!-- Image 10 -->
+        <div class="polaroid" data-img="10">
+            <div class="heart-burst">💥❤️</div>
+            <img src="10.jpeg" alt="Memory 10" class="polaroid-img">
+            <div class="polaroid-caption">Heart Touching</div>
+        </div>
+
+        <!-- Image 11 -->
+        <div class="polaroid polaroid-rotate" data-img="11">
+            <div class="heart-burst">💥❤️</div>
+            <img src="11.jpeg" alt="Memory 11" class="polaroid-img">
+            <div class="polaroid-caption">Warm Hug</div>
+        </div>
+
+        <!-- Image 12 -->
+        <div class="polaroid" data-img="12">
+            <div class="heart-burst">💥❤️</div>
+            <img src="12.jpeg" alt="Memory 12" class="polaroid-img">
+            <div class="polaroid-caption">Joyful Frame</div>
+        </div>
+
+        <!-- Image 13 -->
+        <div class="polaroid polaroid-rotate" data-img="13">
+            <div class="heart-burst">💥❤️</div>
+            <img src="13.jpeg" alt="Memory 13" class="polaroid-img">
+            <div class="polaroid-caption">Lovely Eyes</div>
+        </div>
+
+        <!-- Image 14 -->
+        <div class="polaroid" data-img="14">
+            <div class="heart-burst">💥❤️</div>
+            <img src="14.jpeg" alt="Memory 14" class="polaroid-img">
+            <div class="polaroid-caption">Calm Moment</div>
+        </div>
+
+        <!-- Image 15 -->
+        <div class="polaroid polaroid-rotate" data-img="15">
+            <div class="heart-burst">💥❤️</div>
+            <img src="15.jpeg" alt="Memory 15" class="polaroid-img">
+            <div class="polaroid-caption">Peaceful Love</div>
+        </div>
+
+        <!-- Image 16 -->
+        <div class="polaroid" data-img="16">
+            <div class="heart-burst">💥❤️</div>
+            <img src="16.jpeg" alt="Memory 16" class="polaroid-img">
+            <div class="polaroid-caption">Bright Day</div>
+        </div>
+
+        <!-- Image 17 -->
+        <div class="polaroid polaroid-rotate" data-img="17">
+            <div class="heart-burst">💥❤️</div>
+            <img src="17.jpeg" alt="Memory 17" class="polaroid-img">
+            <div class="polaroid-caption">Sweet Heart</div>
+        </div>
+
+        <!-- Image 18 -->
+        <div class="polaroid" data-img="18">
+            <div class="heart-burst">💥❤️</div>
+            <img src="18.jpeg" alt="Memory 18" class="polaroid-img">
+            <div class="polaroid-caption">Soft Smile</div>
+        </div>
+
+        <!-- Image 19 -->
+        <div class="polaroid polaroid-rotate" data-img="19">
+            <div class="heart-burst">💥❤️</div>
+            <img src="19.jpeg" alt="Memory 19" class="polaroid-img">
+            <div class="polaroid-caption">Pure Joy</div>
+        </div>
+
+        <!-- Image 20 -->
+        <div class="polaroid" data-img="20">
+            <div class="heart-burst">💥❤️</div>
+            <img src="20.jpeg" alt="Memory 20" class="polaroid-img">
+            <div class="polaroid-caption">Gentle Love</div>
+        </div>
+
+        <!-- Image 21 -->
+        <div class="polaroid polaroid-rotate" data-img="21">
+            <div class="heart-burst">💥❤️</div>
+            <img src="21.jpeg" alt="Memory 21" class="polaroid-img">
+            <div class="polaroid-caption">Golden Smile</div>
+        </div>
+
+        <!-- Image 22 -->
+        <div class="polaroid" data-img="22">
+            <div class="heart-burst">💥❤️</div>
+            <img src="22.jpeg" alt="Memory 22" class="polaroid-img">
+            <div class="polaroid-caption">Soft Moments</div>
+        </div>
+
+        <!-- Image 23 -->
+        <div class="polaroid polaroid-rotate" data-img="23">
+            <div class="heart-burst">💥❤️</div>
+            <img src="23.jpeg" alt="Memory 23" class="polaroid-img">
+            <div class="polaroid-caption">Forever Love</div>
+        </div>
+
+        <!-- Image 24 -->
+        <div class="polaroid" data-img="24">
+            <div class="heart-burst">💥❤️</div>
+            <img src="24.jpeg" alt="Memory 24" class="polaroid-img">
+            <div class="polaroid-caption">Golden Heart</div>
+        </div>
+
+        <!-- Image 25 -->
+        <div class="polaroid polaroid-rotate" data-img="25">
+            <div class="heart-burst">💥❤️</div>
+            <img src="25.jpeg" alt="Memory 25" class="polaroid-img">
+            <div class="polaroid-caption">Endless Care</div>
+        </div>
+
+        <!-- Image 26 -->
+        <div class="polaroid" data-img="26">
+            <div class="heart-burst">💥❤️</div>
+            <img src="26.jpeg" alt="Memory 26" class="polaroid-img">
+            <div class="polaroid-caption">Silent Love</div>
+        </div>
+
+        <!-- Image 27 -->
+        <div class="polaroid polaroid-rotate" data-img="27">
+            <div class="heart-burst">💥❤️</div>
+            <img src="27.jpeg" alt="Memory 27" class="polaroid-img">
+            <div class="polaroid-caption">Angel Smile</div>
+        </div>
+
+        <!-- Image 28 -->
+        <div class="polaroid" data-img="28">
+            <div class="heart-burst">💥❤️</div>
+            <img src="28.jpeg" alt="Memory 28" class="polaroid-img">
+            <div class="polaroid-caption">Pure Bond</div>
+        </div>
+
+        <!-- Image 29 -->
+        <div class="polaroid polaroid-rotate" data-img="29">
+            <div class="heart-burst">💥❤️</div>
+            <img src="29.jpeg" alt="Memory 29" class="polaroid-img">
+            <div class="polaroid-caption">Lovely Soul</div>
+        </div>
+
+        <!-- Image 30 -->
+      
+
+    </div>
+</section>
+
 
     <!-- Letter Section -->
     <section class="section letter" id="letter">
@@ -1034,11 +1826,11 @@
                 </div>
             </div>
             <div class="letter-text" id="letterText">
-                <div class="letter-line">Amma,</div>
-                <div class="letter-line">Enna vida yaarum enna ivlo nesikkala…</div>
-                <div class="letter-line">Nee irukkira varaikum naan safe ❤️</div>
-                <div class="letter-line">You are my first love, my forever hero.</div>
-                <div class="letter-line">Thank you for everything, Amma.</div>
+                <div class="letter-line">அம்மா,</div>
+                <div class="letter-line">உன் மடியில் வளர்ந்த நான்; இன்று என்னை தாங்கும் நிழலும் நீயே.</div>
+                <div class="letter-line">உன் கண்களில் இருக்கும் கருணை தான் என் வாழ்வின் மென்மையான வெளிச்சம்.</div>
+                <div class="letter-line">நீ சிரிக்கும்போது என் உள்ளம் அமைதியாகிறது; நீ கவலைப்பட்டால் என் மூச்சும் நடுங்குகிறது.</div>
+                <div class="letter-line">இந்த பிறந்தநாளில் உன் பாதம் தொட்டு ஆசீர்வாதம் கேட்கிறேன்—என்றும் உன்னை நேசித்து காக்கும் உன் பிள்ளை நான்.</div>
             </div>
         </div>
     </section>
@@ -1060,34 +1852,116 @@
         <div id="confettiContainer"></div>
     </section>
 
-    <!-- Cake Cutting Visual (integrated from cake-cutting.html) -->
-    <section class="section" id="cake-cutting-section">
+    <!-- Cake Cutting Section -->
+    <section class="section cake-cutting" id="cake-cutting">
         <h2 class="section-title">Cake Cutting for Amma 🎂</h2>
         <div class="cake-frame-container">
-            <iframe
-                class="cake-frame"
-                src="cake-cutting.html"
-                title="Birthday Cake Cutting for Amma"
-                loading="lazy"
-            ></iframe>
+            <!-- You can embed your cake-cutting.html here or use the placeholder -->
+            <div style="width:100%;height:100%;display:flex;justify-content:center;align-items:center;background:linear-gradient(135deg,#ffccbc,#ffab91);border-radius:24px;">
+                <div style="text-align:center;padding:20px;">
+                    <div style="font-size:4rem;margin-bottom:20px;">🎂</div>
+                    <h3 style="font-family:'Dancing Script',cursive;font-size:2.5rem;color:#5d4037;">Virtual Cake Cutting</h3>
+                    <p style="font-size:1.2rem;margin-top:10px;color:#5d4037;">Click to cut the birthday cake!</p>
+                    <button onclick="cutCake()" style="background:var(--dark-pink);color:white;border:none;padding:12px30px;border-radius:50px;font-size:1.2rem;margin-top:20px;cursor:pointer;font-family:'Dancing Script',cursive;">Cut the Cake ✂️</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Garden of Love -->
+    <section class="section garden" id="garden">
+        <h2 class="section-title">Garden of Love 🌿</h2>
+        <div class="garden-container">
+            <div class="garden-ground"></div>
+
+            <!-- Roses (Love) -->
+            <div class="flower rose flower-pos-1" data-type="rose" data-memory="0">
+                <div class="flower-icon">🌹</div>
+                <div class="flower-label">Love</div>
+            </div>
+            <div class="flower rose flower-pos-2" data-type="rose" data-memory="1">
+                <div class="flower-icon">🌹</div>
+                <div class="flower-label">Love</div>
+            </div>
+            <div class="flower rose flower-pos-3" data-type="rose" data-memory="2">
+                <div class="flower-icon">🌹</div>
+                <div class="flower-label">Love</div>
+            </div>
+
+            <!-- Jasmine (Care) -->
+            <div class="flower jasmine flower-pos-4" data-type="jasmine" data-memory="3">
+                <div class="flower-icon">🌼</div>
+                <div class="flower-label">Care</div>
+            </div>
+            <div class="flower jasmine flower-pos-5" data-type="jasmine" data-memory="4">
+                <div class="flower-icon">🌼</div>
+                <div class="flower-label">Care</div>
+            </div>
+            <div class="flower jasmine flower-pos-6" data-type="jasmine" data-memory="5">
+                <div class="flower-icon">🌼</div>
+                <div class="flower-label">Care</div>
+            </div>
+
+            <!-- Lotus (Strength) -->
+            <div class="flower lotus flower-pos-7" data-type="lotus" data-memory="6">
+                <div class="flower-icon">🪷</div>
+                <div class="flower-label">Strength</div>
+            </div>
+            <div class="flower lotus flower-pos-8" data-type="lotus" data-memory="7">
+                <div class="flower-icon">🪷</div>
+                <div class="flower-label">Strength</div>
+            </div>
+            <div class="flower lotus flower-pos-9" data-type="lotus" data-memory="8">
+                <div class="flower-icon">🪷</div>
+                <div class="flower-label">Strength</div>
+            </div>
+            <div class="flower lotus flower-pos-10" data-type="lotus" data-memory="9">
+                <div class="flower-icon">🪷</div>
+                <div class="flower-label">Strength</div>
+            </div>
+
+            <!-- Ending Message -->
+            <div class="garden-ending" id="gardenEnding">
+                <p class="garden-ending-text">You are the reason my world blooms, Amma 🌸</p>
+            </div>
         </div>
     </section>
 
     <!-- Final Blessing -->
     <section class="section blessing" id="blessing">
-        <h2 class="section-title">Forever My Hero</h2>
+        <h2 class="section-title">Forever My BestFriend</h2>
         <img src="1.jpeg" alt="Amma" class="blessing-photo" id="blessingPhoto" onerror="this.style.display='none'; this.alt='Photo placeholder';">
         <div id="floatingWordsContainer"></div>
-        <div class="final-text" id="finalText">Forever my hero Amma ❤️</div>
+        <div class="final-text" id="finalText">Forever my life ❤️</div>
     </section>
 
-    <!-- Modal -->
+    <!-- Memory Modal -->
+    <div class="memory-modal" id="memoryModal">
+        <div class="memory-content">
+            <span class="memory-close" id="memoryClose">&times;</span>
+            <div class="memory-flower-icon" id="memoryFlowerIcon"></div>
+            <h3 class="memory-title" id="memoryTitle">Memory</h3>
+            <p class="memory-text" id="memoryText"></p>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
     <div class="modal" id="imageModal">
         <span class="modal-close" id="modalClose">&times;</span>
-        <img class="modal-content" id="modalImage" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect width='400' height='400' fill='%23ffb6c1'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='18' fill='%235d4037' text-anchor='middle' dy='.3em'%3EImage%3C/text%3E%3C/svg%3E" alt="Full size image">
+        <img class="modal-content" id="modalImage" src="" alt="Full size image">
     </div>
 
     <script>
+        // Loading Screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                }, 1000);
+            }, 2000);
+        });
+
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         themeToggle.addEventListener('click', () => {
@@ -1114,12 +1988,17 @@
                 musicToggle.innerHTML = '<i class="fas fa-play"></i>';
                 isPlaying = false;
             } else {
-                backgroundMusic.play().then(() => {
-                    musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
-                    isPlaying = true;
-                }).catch(() => {
-                    alert('Please add your music file and update the audio source in the HTML.');
-                });
+                // Play music (you need to add your music file)
+                // backgroundMusic.play().then(() => {
+                //     musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+                //     isPlaying = true;
+                // }).catch(() => {
+                //     alert('Please add your music file and update the audio source in the HTML.');
+                // });
+                
+                // For demo purposes, we'll just toggle the icon
+                musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+                isPlaying = true;
             }
         });
 
@@ -1137,6 +2016,45 @@
                     setTimeout(() => heart.remove(), 300);
                 }, 1000);
             }
+        });
+
+        // Navigation Dots
+        const sections = document.querySelectorAll('.section');
+        const navDots = document.getElementById('navDots');
+        
+        sections.forEach((section, index) => {
+            const dot = document.createElement('div');
+            dot.className = 'nav-dot';
+            dot.dataset.section = section.id;
+            dot.addEventListener('click', () => {
+                section.scrollIntoView({ behavior: 'smooth' });
+            });
+            navDots.appendChild(dot);
+        });
+
+        // Update active dot on scroll
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.scrollY + window.innerHeight / 2;
+            
+            sections.forEach((section, index) => {
+                const dot = navDots.children[index];
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                
+                if (scrollPos >= sectionTop && scrollPos <= sectionBottom) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        });
+
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + "%";
         });
 
         // Start Button
@@ -1248,17 +2166,34 @@
         // Birthday Surprise
         const balloonsContainer = document.getElementById('balloonsContainer');
         const colors = ['#ff6b6b', '#4ecdc4', '#ffe66d', '#a8e6cf', '#ffaaa5'];
+        const emojis = ['🎈', '🎉', '🎊', '💝', '✨'];
 
         function createBalloon() {
             const balloon = document.createElement('div');
             balloon.className = 'balloon';
             const color = colors[Math.floor(Math.random() * colors.length)];
+            const emoji = emojis[Math.floor(Math.random() * emojis.length)];
             balloon.style.backgroundColor = color;
             balloon.style.left = Math.random() * 100 + '%';
             balloon.style.animationDuration = (10 + Math.random() * 10) + 's';
+            balloon.innerHTML = emoji;
+            balloon.addEventListener('click', () => {
+                balloon.style.animation = 'popBalloon 0.3s ease-out forwards';
+                setTimeout(() => balloon.remove(), 300);
+            });
             balloonsContainer.appendChild(balloon);
             setTimeout(() => balloon.remove(), 20000);
         }
+
+        // Add pop animation
+        const balloonStyle = document.createElement('style');
+        balloonStyle.textContent = `
+            @keyframes popBalloon {
+                0% { transform: scale(1); opacity: 1; }
+                100% { transform: scale(2); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(balloonStyle);
 
         setInterval(createBalloon, 2000);
 
@@ -1272,21 +2207,28 @@
             wishText.classList.add('visible');
             blowBtn.style.display = 'none';
 
+            // Create more balloons
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => createBalloon(), i * 200);
+            }
+
             // Confetti
-            for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.top = Math.random() * 100 + '%';
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
-                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-                confetti.style.width = (Math.random() * 10 + 5) + 'px';
-                confetti.style.height = (Math.random() * 10 + 5) + 'px';
-                confetti.style.opacity = '1';
-                confetti.style.animation = `confettiFall ${2 + Math.random() * 2}s ease-out forwards`;
-                confettiContainer.appendChild(confetti);
-                setTimeout(() => confetti.remove(), 4000);
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                    confetti.style.height = (Math.random() * 10 + 5) + 'px';
+                    confetti.style.opacity = '1';
+                    confetti.style.animation = `confettiFall ${2 + Math.random() * 2}s ease-out forwards`;
+                    confettiContainer.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 4000);
+                }, i * 30);
             }
         });
 
@@ -1306,6 +2248,50 @@
             }
         `;
         document.head.appendChild(style);
+
+        // Cake Cutting Function
+        function cutCake() {
+            const cakeContainer = document.querySelector('.cake-frame-container');
+            cakeContainer.innerHTML = `
+                <div style="width:100%;height:100%;display:flex;justify-content:center;align-items:center;background:linear-gradient(135deg,#ffccbc,#ffab91);border-radius:24px;">
+                    <div style="text-align:center;padding:20px;">
+                        <div style="font-size:4rem;margin-bottom:20px;animation: cakeCut 1s ease-out;">🎂➡️🍰</div>
+                        <h3 style="font-family:'Dancing Script',cursive;font-size:2.5rem;color:#5d4037;">Cake Cut Successfully!</h3>
+                        <p style="font-size:1.2rem;margin-top:10px;color:#5d4037;">Happy Birthday Amma! 🎉</p>
+                        <div style="margin-top:20px;font-size:1.5rem;">🥳🎊🎁</div>
+                    </div>
+                </div>
+            `;
+            
+            // Add cake cut animation
+            const cutStyle = document.createElement('style');
+            cutStyle.textContent = `
+                @keyframes cakeCut {
+                    0% { transform: rotate(0deg) scale(1); }
+                    50% { transform: rotate(-10deg) scale(1.1); }
+                    100% { transform: rotate(0deg) scale(1); }
+                }
+            `;
+            document.head.appendChild(cutStyle);
+            
+            // Add confetti
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.position = 'absolute';
+                    confetti.style.width = '10px';
+                    confetti.style.height = '10px';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.borderRadius = '50%';
+                    confetti.style.zIndex = '1';
+                    confetti.style.animation = `confettiFall ${1 + Math.random() * 1}s ease-out forwards`;
+                    cakeContainer.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 2000);
+                }, i * 50);
+            }
+        }
 
         // Final Blessing
         const floatingWordsContainer = document.getElementById('floatingWordsContainer');
@@ -1360,6 +2346,124 @@
                 scrollToNext();
             }, 500);
         });
+
+        // Garden of Love - Memory Data
+        const gardenMemories = {
+            rose: [
+                {
+                    icon: '🌹',
+                    title: 'அன்பு',
+                    text: 'அம்மா… உங்க அன்பு தான் என் வாழ்க்கையோட முதல் பாடம். எந்த சூழ்நிலையிலும் என்ன கைவிடாத ஒரே உணர்வு அது ❤️'
+                },
+                {
+                    icon: '🌹',
+                    title: 'அன்பு',
+                    text: 'எதையும் எதிர்பார்க்காம என்ன நேசிச்சது நீங்க தான் அம்மா. அந்த அன்பு என் உயிரோட கலந்தது 💕'
+                }
+            ],
+
+            jasmine: [
+                {
+                    icon: '🌼',
+                    title: 'பரிவு',
+                    text: 'சின்ன சின்ன விஷயங்களிலும் உங்க கவனம் தெரியும் அம்மா. மல்லிகை பூ வாசம் போல மனசு முழுக்க பரவி இருக்கும் 🌼'
+                },
+                {
+                    icon: '🌼',
+                    title: 'பரிவு',
+                    text: 'என் வலி உங்களுக்கு தெரியும், சொல்லாமலே. அதுதான் அம்மா பரிவின் அழகு 🤍'
+                }
+            ],
+
+            lotus: [
+                {
+                    icon: '🪷',
+                    title: 'துணிச்சல்',
+                    text: 'கஷ்டம் வந்தாலும் சிரிச்ச முகத்தோட சமாளிச்ச உங்க தைரியம் தான் அம்மா, எங்களுக்கு பெரிய பலம் 🪷'
+                },
+                {
+                    icon: '🪷',
+                    title: 'துணிச்சல்',
+                    text: 'எதிர்பாராத சூழ்நிலைகளிலும் உறுதியாக நின்று எங்களை காப்பாத்தின உங்கள் வீரம் 🪷'
+                }
+            ]
+        };
+
+        // Garden Flower Interactions
+        const flowers = document.querySelectorAll('.flower');
+        const memoryModal = document.getElementById('memoryModal');
+        const memoryClose = document.getElementById('memoryClose');
+        const memoryFlowerIcon = document.getElementById('memoryFlowerIcon');
+        const memoryTitle = document.getElementById('memoryTitle');
+        const memoryText = document.getElementById('memoryText');
+        const gardenEnding = document.getElementById('gardenEnding');
+        let viewedMemories = new Set();
+
+        // Show flowers with animation
+        function showFlowers() {
+            flowers.forEach((flower, index) => {
+                setTimeout(() => {
+                    flower.classList.add('visible');
+                }, index * 200);
+            });
+        }
+
+        // Show memory when flower is clicked
+        flowers.forEach(flower => {
+            flower.addEventListener('click', function() {
+                const type = this.dataset.type;
+                const memoryIndex = parseInt(this.dataset.memory);
+                const memories = gardenMemories[type];
+                
+                if (memories && memories.length > 0) {
+                    const memory = memories[memoryIndex % memories.length];
+                    
+                    // Show memory modal
+                    memoryFlowerIcon.textContent = memory.icon;
+                    memoryTitle.textContent = memory.title;
+                    memoryText.textContent = memory.text;
+                    memoryModal.classList.add('active');
+
+                    // Track viewed memories
+                    viewedMemories.add(`${type}-${memoryIndex}`);
+
+                    // Check if all memories viewed
+                    setTimeout(() => {
+                        if (viewedMemories.size >= 10) {
+                            gardenEnding.classList.add('visible');
+                        }
+                    }, 500);
+                }
+            });
+        });
+
+        // Close memory modal
+        memoryClose.addEventListener('click', () => {
+            memoryModal.classList.remove('active');
+        });
+
+        memoryModal.addEventListener('click', (e) => {
+            if (e.target === memoryModal) {
+                memoryModal.classList.remove('active');
+            }
+        });
+
+        // Show flowers when garden section is visible
+        const gardenObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    showFlowers();
+                    gardenObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        gardenObserver.observe(document.getElementById('garden'));
+
+        // Initialize first dot as active
+        if (navDots.firstChild) {
+            navDots.firstChild.classList.add('active');
+        }
     </script>
 </body>
 </html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Cake Cutting - Amma ❤️</title>
+    <!-- Cake cutting styles -->
+    <link rel="stylesheet" href="cake-cutting.css">
+</head>
+<body>
+    <!-- Main container -->
+    <div class="cake-page-container">
+        <!-- Soft background gradient -->
+        <div class="cake-background-overlay"></div>
+
+        <!-- Content wrapper -->
+        <div class="cake-scene">
+            <!-- Cake area -->
+            <div class="cake-wrapper">
+                <!-- Split cake (hidden until cut) -->
+                <div class="cake-left" id="cakeLeft">
+                    <div class="cake-layer layer-1"></div>
+                    <div class="cake-layer layer-2"></div>
+                    <div class="cake-layer layer-3"></div>
+                </div>
+                <div class="cake-right" id="cakeRight">
+                    <div class="cake-layer layer-1"></div>
+                    <div class="cake-layer layer-2"></div>
+                    <div class="cake-layer layer-3"></div>
+                </div>
+
+                <!-- Whole cake before cutting -->
+                <div class="cake-original" id="cakeOriginal">
+                    <div class="cake-layer layer-1"></div>
+                    <div class="cake-layer layer-2"></div>
+                    <div class="cake-layer layer-3"></div>
+
+                    <!-- Candles -->
+                    <div class="candles-container">
+                        <div class="candle">
+                            <div class="candle-wick"></div>
+                            <div class="flame flame-1"></div>
+                        </div>
+                        <div class="candle">
+                            <div class="candle-wick"></div>
+                            <div class="flame flame-2"></div>
+                        </div>
+                        <div class="candle">
+                            <div class="candle-wick"></div>
+                            <div class="flame flame-3"></div>
+                        </div>
+                    </div>
+
+                    <!-- Slice line -->
+                    <div class="cutting-line" id="cuttingLine"></div>
+                </div>
+            </div>
+
+            <!-- Knife -->
+            <div class="knife" id="knife" aria-hidden="true">
+                <div class="knife-blade"></div>
+                <div class="knife-handle"></div>
+            </div>
+
+            <!-- Confetti & sparkles -->
+            <div class="confetti-container" id="confettiContainer"></div>
+            <div class="sparkle-container" id="sparkleContainer"></div>
+
+            <!-- Glowing birthday message -->
+            <div class="birthday-message" id="birthdayMessage">
+                <h1>Happy Birthday Amma ❤️</h1>
+            </div>
+
+            <!-- Action button -->
+            <button type="button" class="cut-button" id="cutButton" aria-label="Cut the birthday cake">
+                <span class="button-icon">🎂</span>
+                <span class="button-text">Cut the Cake</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Script for interactions -->
+    <script src="cake-cutting.js"></script>
+</body>
+</html>
+
+
